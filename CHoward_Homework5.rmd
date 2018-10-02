@@ -1,0 +1,77 @@
+df---
+title: "Homework 5"
+author: "Camille Howard"
+date: "September 27, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Homework 5
+### Question 1
+
+```{r yo2016, echo=FALSE}
+yob2016 <- read.csv("C:/Users/camille.howard/Desktop/yob2016.txt", header=FALSE, sep=";")
+#Create the dataframe and assign column names
+df <- data.frame(yob2016, nrow=32869, ncol=3)
+colnames(df) <- c("First Name", "Gender", "Amount of Children")
+### Examine the data frame
+dim(df)
+str(df)
+summary(df)
+colnames(df)
+df2 <- df[,-5]
+y2016 <-df2[,-4]
+y2016
+###Detect lines ending with "yyy"
+str(df)
+grepl("y+", c("yyy"), perl=TRUE)
+sapply(df, class)
+df
+colnames(df)
+df <-data.frame(x = 1:3, y=3:5, z = c("First Name", "Gender", "Amount of Children"))
+###By column name
+df1 <- subset(df, select = -c(y) )
+
+(strings <-c("yyy"))
+grep("yyy$", strings, value = TRUE)
+###Remove misspelled names and assign to new object call yo2016
+y2016.f <- y2016[-c(216), ]
+y2016.f
+class(y2016.f)
+```
+###Question 2 amd 3.
+
+```{r yo2015, echo=FALSE}
+yob2015 <- read.csv("C:/Users/camille.howard/Desktop/yob2015.txt", header=FALSE)
+class(yob2015)
+#Create the dataframe and assign column names
+df <- data.frame(yob2015, nrow=33063, ncol=3)
+colnames(df) <- c("First Name", "Gender", "Amount of Children")
+head(df)
+df2 <- df[,-5]
+y2015 <-df2[,-4]
+y2015
+##Display last 10 rows of data frame. Interesting observation, they all have a rating of 5.
+tail(y2015, n=10)
+### merge two data frames by ID
+colnames(y2015)
+y2015
+##Merge
+head(y2016.f)
+(final <- merge(y2015, y2016.f))
+dim(final)
+summary(final)
+###Add total columns and sort, list top 10 girls
+final[,3]
+final$Total <-final[,3]+final[,3]
+final
+head(final)
+girls.var<- names(final) %in% c("Male")
+girls.only <-final[!girls.var]
+top.girls<-head(girls.only)
+top.girls
+write.csv(top.girls,'topgirls.csv')
+```
